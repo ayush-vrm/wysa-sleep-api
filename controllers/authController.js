@@ -7,6 +7,14 @@ require("dotenv").config();
 exports.signup = async (req, res) => {
     const { nickname, password, role } = req.body;
     try {
+
+        if(!nickname|| !password){
+            return res.status(400).json({
+                success : false,
+                message : "Fill all required fields"
+            })
+        }
+
         let user = await User.findOne({ nickname });
 
         if (user) {
